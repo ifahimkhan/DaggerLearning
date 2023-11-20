@@ -1,16 +1,22 @@
 package com.fahim.daggerlearning.di.module
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.fahim.daggerlearning.MyApplication
-import com.fahim.daggerlearning.data.local.DatabaseService
 import com.fahim.daggerlearning.data.local.FileStorageService
+import com.fahim.daggerlearning.data.local.PrefUtils
 import com.fahim.daggerlearning.data.remote.HttpClient
 import com.fahim.daggerlearning.di.ApiKey
 import com.fahim.daggerlearning.di.ApplicationContext
+import com.fahim.daggerlearning.di.ApplicationScope
 import com.fahim.daggerlearning.di.DatabaseName
 import com.fahim.daggerlearning.di.DatabaseVersion
 import dagger.Module
 import dagger.Provides
+import java.util.prefs.Preferences
+import javax.inject.Singleton
+
 
 @Module
 class ApplicationModule(private val application: MyApplication) {
@@ -33,6 +39,7 @@ class ApplicationModule(private val application: MyApplication) {
         return "SOME_API_KEY"
     }
 
+    @ApplicationScope
     @Provides
     fun provideFileStorage(): FileStorageService {
         return FileStorageService()
@@ -49,6 +56,7 @@ class ApplicationModule(private val application: MyApplication) {
     fun provideDatabaseName(): String {
         return "Some_DB_NAME"
     }
+
 
 
 }

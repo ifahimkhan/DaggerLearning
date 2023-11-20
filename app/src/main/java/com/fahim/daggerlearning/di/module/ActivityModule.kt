@@ -14,4 +14,5 @@ class ActivityModule(private val activity: Activity) {
     fun provideContext(): Context {
         return activity
     }
+
 }

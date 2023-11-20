@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.fahim.daggerlearning.MyApplication
 import com.fahim.daggerlearning.R
+import com.fahim.daggerlearning.data.local.DataManager
 import com.fahim.daggerlearning.di.component.DaggerFragmentComponent
 import com.fahim.daggerlearning.di.module.FragmentModule
-import me.amitshekhar.dagger.learning.ui.home.HomeViewModel
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -29,6 +29,9 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: HomeViewModel
+
+    @Inject
+    lateinit var dataManager: DataManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getDependencies()
