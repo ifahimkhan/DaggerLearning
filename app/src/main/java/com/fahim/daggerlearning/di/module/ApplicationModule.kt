@@ -57,6 +57,10 @@ class ApplicationModule(private val application: MyApplication) {
         return "Some_DB_NAME"
     }
 
-
+    @ApplicationScope
+    @Provides
+    fun provideSharedPreferences(): PrefUtils {
+        return PrefUtils(application.applicationContext)
+    }
 
 }
