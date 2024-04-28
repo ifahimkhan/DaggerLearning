@@ -5,9 +5,21 @@ import android.content.SharedPreferences
 import com.fahim.daggerlearning.di.ApplicationContext
 import com.fahim.daggerlearning.di.ApplicationScope
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 class PrefUtils @Inject constructor(@ApplicationContext val context: Context) {
+
+    private val sharedPreferences: SharedPreferences by lazy {
+        getSharedPreferenceInstance()
+    }
+
+    private fun getSharedPreferenceInstance(): SharedPreferences {
+        return context.getSharedPreferences(
+            getDefaultSharedPreferencesName(context),
+            getDefaultSharedPreferencesMode()
+        )
+    }
 
     companion object {
         private fun getDefaultSharedPreferencesMode(): Int {
@@ -15,38 +27,27 @@ class PrefUtils @Inject constructor(@ApplicationContext val context: Context) {
         }
 
         private fun getDefaultSharedPreferencesName(context: Context): String {
-            return context.packageName + "_preferences"
-        }
-
-        private fun getSharedPreferenceInstanced(context: Context): SharedPreferences {
-            return context.getSharedPreferences(
-                getDefaultSharedPreferencesName(context),
-                getDefaultSharedPreferencesMode()
-            )
+            return "${context.packageName}_preferences"
         }
     }
 
-
     fun savePrefutilsHashcode(mapping: String?) {
-        val editor: SharedPreferences.Editor =
-            getSharedPreferenceInstanced(context).edit()
+        val editor = sharedPreferences.edit()
         editor.putString("savePrefutilsHashcode", mapping)
         editor.apply()
     }
 
     fun getPrefutilsHashcode(): String? {
-        return getSharedPreferenceInstanced(context).getString("savePrefutilsHashcode", "")
+        return sharedPreferences.getString("savePrefutilsHashcode", "")
     }
 
     fun saveDataManagerHashcode(mapping: String?) {
-        val editor: SharedPreferences.Editor =
-            getSharedPreferenceInstanced(context).edit()
+        val editor = sharedPreferences.edit()
         editor.putString("saveDataManagerHashcode", mapping)
         editor.apply()
     }
 
     fun getDataManagerHashcode(): String? {
-        return getSharedPreferenceInstanced(context).getString("saveDataManagerHashcode", "")
+        return sharedPreferences.getString("saveDataManagerHashcode", "")
     }
-
 }
